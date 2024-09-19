@@ -12,7 +12,7 @@ create table clientes (
 clienteId int primary key auto_increment not null,
 clienteNome varchar(45) not null,
 clienteSobrenome varchar(45) not null,
-clienteCEP varchar(45) not null 
+clienteCEP int not null 
 );
 
 drop table cliente;
@@ -20,8 +20,8 @@ drop table cliente;
 create table pecas (
 pecaId int primary key auto_increment not null,
 pecaNome varchar(45) not null,
-pecaPreco float not null,
-pecaQuantidade float not null
+pecaPreco decimal(4,2) not null,
+pecaQuantidade int not null
 );
 
 create table pedido (
