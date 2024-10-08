@@ -1,0 +1,39 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+def validar_cnpj(cnpj):
+    # Remove caracteres não numéricos
+    cnpj = ''.join(filter(str.isdigit, cnpj))
+    
+    if len(cnpj) != 14:
+        return False
+
+    # Função para calcular o dígito verificador
+    def calcular_digito(cnpj, pesos):
+        soma = sum(int(cnpj[i]) * pesos[i] for i in range(len(pesos)))
+        digito = 11 - (soma % 11)
+        return digito if digito < 10 else 0
+
+    # Pesos para o primeiro e segundo dígitos verificadores
+    pesos_primeiro_digito = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    pesos_segundo_digito = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+
+    # Verifica o primeiro dígito verificador
+    primeiro_digito = calcular_digito(cnpj[:12], pesos_primeiro_digito)
+    if primeiro_digito != int(cnpj[12]):
+        return False
+
+    # Verifica o segundo dígito verificador
+    segundo_digito = calcular_digito(cnpj[:13], pesos_segundo_digito)
+    if segundo_digito != int(cnpj[13]):
+        return False
+
+    return True
+
+# Exemplo de uso
+cnpj = input("Digite o CNPJ: ")
+if validar_cnpj(cnpj):
+    print("CNPJ válido!")
+else:
+    print("CNPJ inválido!")
